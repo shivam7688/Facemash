@@ -1,0 +1,1196 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FACEMASH</title>
+  <!-- <link rel="icon" href="images/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" /> -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  // import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDxpzHCRB1kPUnK0RD4llAOBgNHLUPQiyY",
+    authDomain: "imageratingsapp.firebaseapp.com",
+    databaseURL: "https://imageratingsapp-default-rtdb.firebaseio.com",
+    projectId: "imageratingsapp",
+    storageBucket: "imageratingsapp.firebasestorage.app",
+    messagingSenderId: "798338731417",
+    appId: "1:798338731417:web:d3275c68598852c08c5708"
+  };
+
+    // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+
+        const imgDir = "images/farm%20animals/";
+    const shownImages = new Set(); // Keeps track of shown images
+    const baseRating = 200;
+    const k = 32;
+
+    const imageArray = [
+      "p250000154.jpeg",
+"p250000208.jpg",
+"p250000213.jpg",
+"p250000287.jpg",
+"p250000361.jpg",
+"p250000457.jpg",
+"p250000477.jpg",
+"p250000673.jpg",
+"p250000891.jpg",
+"p250000915.jpg",
+"p250000933.jpeg",
+"p250000934.jpg",
+"p250000956.jpg",
+"p250001024.jpg",
+"p250001025.jpg",
+"p250001084.jpeg",
+"p250001086.jpeg",
+"p250001194.jpg",
+"p250001273.jpg",
+"p250001358.jpg",
+"p250001420.jpg",
+"p250001849.jpg",
+"p250001876.jpg",
+"p250001881.jpg",
+"p250001923.jpeg",
+"p250002082.jpg",
+"p250002106.jpg",
+"p250002201.jpg",
+"p250002260.jpg",
+"p250002274.jpg",
+"p250002367.jpg",
+"p250002433.jpg",
+"p250002451.jpeg",
+"p250002493.jpg",
+"p250002538.jpg",
+"p250002777.jpg",
+"p250002824.jpg",
+"p250002867.jpg",
+"p250003170.jpg",
+"p250003208.jpg",
+"p250003242.jpg",
+"p250003288.jpg",
+"p250003325.jpg",
+"p250003351.jpg",
+"p250003392.jpg",
+"p250003446.jpg",
+"p250003482.jpg",
+"p250003555.jpg",
+"p250003725.jpg",
+"p250003784.jpeg",
+"p250003831.jpg",
+"p250004040.jpg",
+"p250004101.jpg",
+"p250004162.jpg",
+"p250004260.jpg",
+"p250004328.jpg",
+"p250004338.jpeg",
+"p250004693.jpg",
+"p250004834.jpg",
+"p250005003.jpg",
+"p250005234.jpg",
+"p250005333.jpg",
+"p250005354.jpg",
+"p250005436.jpg",
+"p250005459.jpg",
+"p250005687.jpg",
+"p250005706.jpg",
+"p250005744.jpg",
+"p250005747.jpg",
+"p250005834.jpg",
+"p250005874.jpg",
+"p250006000.jpg",
+"p250006018.jpg",
+"p250006032.jpg",
+"p250006233.jpg",
+"p250006267.jpg",
+"p250006283.jpg",
+"p250006421.jpeg",
+"p250006484.jpeg",
+"p250006497.jpg",
+"p250006541.jpeg",
+"p250006660.jpg",
+"p250006751.jpg",
+"p250006896.jpg",
+"p250006936.jpg",
+"p250006937.jpg",
+"p250006939.jpeg",
+"p250006994.jpg",
+"p250007000.jpeg",
+"p250007039.jpg",
+"p250007040.jpeg",
+"p250007569.jpeg",
+"p250007600.jpg",
+"p250007648.jpeg",
+"p250007668.jpg",
+"p250007706.jpg",
+"p250007734.jpg",
+"p250007830.jpg",
+"p250007944.jpg",
+"p250007994.jpg",
+"p250008107.jpg",
+"p250008345.jpg",
+"p250008351.jpg",
+"p250008496.jpg",
+"p250008553.jpg",
+"p250008611.jpg",
+"p250008699.jpg",
+"p250008760.jpg",
+"p250008781.jpg",
+"p250008833.jpeg",
+"p250009027.jpeg",
+"p250009341.jpg",
+"p250009364.jpg",
+"p250009427.jpg",
+"p250009533.jpeg",
+"p250009535.jpg",
+"p250009552.jpeg",
+"p250009623.jpg",
+"p250009744.jpg",
+"p250009783.jpeg",
+"p250009935.jpg",
+"p250009956.jpg",
+"p250009966.jpg",
+"p250010010.jpeg",
+"p250010057.jpg",
+"p250010072.jpg",
+"p250010110.jpg",
+"p250010112.jpg",
+"p250010228.jpg",
+"p250010311.jpg",
+"p250010352.jpg",
+"p250010509.jpg",
+"p250010556.jpg",
+"p250010665.jpg",
+"p250010693.jpg",
+"p250010732.jpeg",
+"p250010782.jpg",
+"p250010832.jpg",
+"p250011062.jpg",
+"p250011077.jpg",
+"p250011271.jpg",
+"p250011352.jpg",
+"p250011416.jpg",
+"p250011463.jpg",
+"p250011507.jpg",
+"p250011553.jpg",
+"p250011585.jpg",
+"p250011619.jpg",
+"p250011657.jpg",
+"p250011664.jpeg",
+"p250011787.jpg",
+"p250011831.jpg",
+"p250011907.jpg",
+"p250012048.jpg",
+"p250012086.jpg",
+"p250012277.jpg",
+"p250012283.jpg",
+"p250012383.jpg",
+"p250012461.jpg",
+"p250012540.jpg",
+"p250012570.jpg",
+"p250012637.jpg",
+"p250012657.jpg",
+"p250012665.jpg",
+"p250012841.jpg",
+"p250012965.jpg",
+"p250012967.jpeg",
+"p250012989.jpg",
+"p250013052.jpg",
+"p250013081.jpg",
+"p250013112.jpg",
+"p250013461.jpg",
+"p250013549.jpg",
+"p250013604.jpg",
+"p250013616.jpg",
+"p250013656.jpg",
+"p250013904.jpg",
+"p250013987.jpg",
+"p250013997.jpeg",
+"p250014053.jpg",
+"p250014077.jpeg",
+"p250014108.jpg",
+"p250014119.jpg",
+"p250014241.jpeg",
+"p250014302.jpg",
+"p250014303.jpeg",
+"p250014339.jpg",
+"p250014344.jpeg",
+"p250014599.jpg",
+"p250014679.jpg",
+"p250014718.jpg",
+"p250014792.jpg",
+"p250014890.jpg",
+"p250014933.jpg",
+"p250014934.jpg",
+"p250014957.jpg",
+"p250014961.jpg",
+"p250015024.jpg",
+"p250015055.jpg",
+"p250015140.jpeg",
+"p250015180.jpg",
+"p250015359.jpg",
+"p250015407.jpg",
+"p250015512.jpg",
+"p250015513.jpg",
+"p250015548.jpg",
+"p250015550.jpg",
+"p250015763.jpg",
+"p250015844.jpg",
+"p250015898.jpg",
+"p250016018.jpg",
+"p250016096.jpeg",
+"p250016109.jpg",
+"p250016133.jpg",
+"p250016329.jpg",
+"p250016370.jpg",
+"p250016413.jpeg",
+"p250016470.jpg",
+"p250016620.jpg",
+"p250016649.jpg",
+"p250017141.jpg",
+"p250017184.jpg",
+"p250017220.jpg",
+"p250017235.jpg",
+"p250017321.jpg",
+"p250017371.jpg",
+"p250017453.jpg",
+"p250017459.jpg",
+"p250017738.jpeg",
+"p250017752.jpg",
+"p250017753.jpg",
+"p250017805.jpg",
+"p250017907.jpg",
+"p250017909.jpg",
+"p250017939.jpg",
+"p250017990.jpg",
+"p250018075.jpg",
+"p250018225.jpeg",
+"p250018308.jpg",
+"p250018379.jpg",
+"p250018700.jpg",
+"p250018715.jpg",
+"p250018778.jpg",
+"p250018839.jpg",
+"p250018971.jpg",
+"p250018984.jpg",
+"p250019132.jpg",
+"p250019160.jpg",
+"p250019287.jpg",
+"p250019295.jpg",
+"p250019298.jpg",
+"p250019390.jpg",
+"p250019527.jpg",
+"p250019558.jpg",
+"p250019630.jpg",
+"p250019674.jpg",
+"p250019792.jpg",
+"p250019874.jpg",
+"p250019943.jpg",
+"p250020032.jpg",
+"p250020042.jpg",
+"p250020149.jpg",
+"p250020171.jpg",
+"p250020415.jpg",
+"p250020527.jpg",
+"p250020528.jpg",
+"p250020638.jpeg",
+"p250020694.jpg",
+"p250020841.jpeg",
+"p250020996.jpg",
+"p250021132.jpg",
+"p250021208.jpeg",
+"p250021404.jpg",
+"p250021627.jpg",
+"p250021634.jpeg",
+"p250021781.jpg",
+"p250021920.jpg",
+"p250021948.jpg",
+"p250021987.jpg",
+"p250022007.jpg",
+"p250022190.jpeg",
+"p250022225.jpeg",
+"p250022309.jpg",
+"p250022336.jpg",
+"p250022387.jpg",
+"p250022511.jpg",
+"p250022529.jpg",
+"p250022682.jpeg",
+"p250022691.jpg",
+"p250022764.jpg",
+"p250022857.jpg",
+"p250022879.jpg",
+"p250022933.jpg",
+"p250023334.jpeg",
+"p250023430.jpeg",
+"p250023567.jpg",
+"p250023853.jpg",
+"p250023945.jpeg",
+"p250024000.jpg",
+"p250024243.jpg",
+"p250024276.jpg",
+"p250024306.jpg",
+"p250024340.jpg",
+"p250024341.jpg",
+"p250024467.jpeg",
+"p250024539.jpg",
+"p250024659.jpg",
+"p250024839.jpg",
+"p250024856.jpg",
+"p250024873.jpg",
+"p250024957.jpg",
+"p250024973.jpg",
+"p250025034.jpg",
+"p250025063.jpg",
+"p250025069.jpg",
+"p250025083.jpg",
+"p250025099.jpg",
+"p250025121.jpg",
+"p250025213.jpg",
+"p250025423.jpg",
+"p250025463.jpg",
+"p250025566.jpg",
+"p250025648.jpeg",
+"p250025660.jpeg",
+"p250025681.jpg",
+"p250025740.jpeg",
+"p250025775.jpg",
+"p250025777.jpg",
+"p250025838.jpg",
+"p250025887.jpg",
+"p250025944.jpg",
+"p250026038.jpg",
+"p250026093.jpeg",
+"p250026146.jpg",
+"p250026169.jpg",
+"p250026201.jpg",
+"p250026255.jpg",
+"p250026341.jpg",
+"p250026418.jpeg",
+"p250026482.jpg",
+"p250026497.jpg",
+"p250026573.jpg",
+"p250026673.jpg",
+"p250026679.jpeg",
+"p250026698.jpg",
+"p250026753.jpeg",
+"p250026830.jpg",
+"p250026881.jpg",
+"p250026943.jpg",
+"p250026966.jpg",
+"p250027092.jpg",
+"p250027127.jpg",
+"p250027165.jpg",
+"p250027197.jpg",
+"p250027218.jpeg",
+"p250027249.jpg",
+"p250027446.jpg",
+"p250027458.jpg",
+"p250027534.jpg",
+"p250027539.jpg",
+"p250027568.jpg",
+"p250027604.jpg",
+"p250027850.jpg",
+"p250028010.jpg",
+"p250028127.jpg",
+"p250028244.jpeg",
+"p250028447.jpg",
+"p250028519.jpg",
+"p250028531.jpeg",
+"p250028577.jpeg",
+"p250028929.jpg",
+"p250029162.jpg",
+"p250029253.jpg",
+"p250029297.jpg",
+"p250029484.jpg",
+"p250029500.jpeg",
+"p250029564.jpg",
+"p250029641.jpg",
+"p250029698.jpg",
+"p250029715.jpg",
+"p250029726.jpg",
+"p250029740.jpg",
+"p250029805.jpg",
+"p250029844.jpg",
+"p250029855.jpg",
+"p250029896.jpg",
+"p250029927.jpg",
+"p250030038.jpg",
+"p250030114.jpg",
+"p250030391.jpg",
+"p250030427.jpg",
+"p250030636.jpg",
+"p250030704.jpg",
+"p250031033.jpeg",
+"p250031173.jpg",
+"p250031516.jpg",
+"p250031768.jpg",
+"p250031905.jpg",
+"p250031983.jpg",
+"p250032000.jpg",
+"p250032002.jpg",
+"p250032003.jpg",
+"p250032090.jpg",
+"p250032104.jpg",
+"p250032201.jpg",
+"p250032310.jpg",
+"p250032666.jpg",
+"p250032677.jpg",
+"p250032749.jpg",
+"p250032898.jpg",
+"p250033035.jpg",
+"p250033137.jpg",
+"p250033172.jpg",
+"p250033243.jpg",
+"p250033459.jpg",
+"p250033487.jpg",
+"p250033525.jpg",
+"p250033669.jpg",
+"p250033708.jpg",
+"p250033748.jpg",
+"p250033783.jpg",
+"p250033810.jpg",
+"p250033952.jpg",
+"p250034035.jpg",
+"p250034047.jpg",
+"p250034165.jpg",
+"p250034186.jpg",
+"p250034311.jpg",
+"p250034450.jpg",
+"p250034451.jpg",
+"p250034502.jpg",
+"p250034543.jpg",
+"p250034569.jpg",
+"p250034585.jpg",
+"p250034656.jpg",
+"p250034707.jpg",
+"p250034720.jpg",
+"p250034791.jpg",
+"p250034794.jpg",
+"p250034815.jpg",
+"p250034893.jpg",
+"p250034936.jpg",
+"p250035037.jpg",
+"p250035054.jpg",
+"p250035176.jpg",
+"p250035186.jpg",
+"p250035392.jpeg",
+"p250035424.jpeg",
+"p250035558.jpg",
+"p250035714.jpg",
+"p250035721.jpg",
+"p250036081.jpeg",
+"p250036155.jpg",
+"p250036213.jpg",
+"p250036289.jpg",
+"p250036328.jpg",
+"p250036357.jpg",
+"p250036570.jpg",
+"p250036619.jpg",
+"p250036674.jpg",
+"p250036732.jpg",
+"p250037130.jpeg",
+"p250037229.jpg",
+"p250037280.jpg",
+"p250037284.jpg",
+"p250037340.jpg",
+"p250037583.jpg",
+"p250037588.jpeg",
+"p250037784.jpg",
+"p250037908.jpg",
+"p250037912.jpg",
+"p250037916.jpg",
+"p250037956.jpg",
+"p250038275.jpg",
+"p250038398.jpg",
+"p250038530.jpg",
+"p250038564.jpeg",
+"p250038694.jpg",
+"p250038719.jpg",
+"p250038774.jpg",
+"p250038784.jpg",
+"p250039004.jpg",
+"p250039044.jpg",
+"p250039073.jpg",
+"p250039183.jpg",
+"p250039195.jpg",
+"p250039607.jpg",
+"p250039618.jpg",
+"p250039674.jpg",
+"p250039759.jpg",
+"p250039870.jpg",
+"p250039888.jpg",
+"p250039987.jpg",
+"p250040000.jpeg",
+"p250040065.jpg",
+"p250040088.jpg",
+"p250040097.jpg",
+"p250040341.jpg",
+"p250040367.jpg",
+"p250040379.jpg",
+"p250040388.jpeg",
+"p250040397.jpg",
+"p250040476.jpg",
+"p250040558.jpg",
+"p250040675.jpg",
+"p250040892.jpeg",
+"p250041036.jpg",
+"p250041129.jpg",
+"p250041249.jpeg",
+"p250041258.jpg",
+"p250041384.jpg",
+"p250041472.jpg",
+"p250041600.jpg",
+"p250041655.jpeg",
+"p250041790.jpg",
+"p250042081.jpg",
+"p250042207.jpg",
+"p250042210.jpg",
+"p250042221.jpg",
+"p250042280.jpg",
+"p250042317.jpeg",
+"p250042475.jpg",
+"p250042523.jpg",
+"p250042626.jpg",
+"p250042651.jpg",
+"p250042714.jpg",
+"p250042718.jpeg",
+"p250042730.jpg",
+"p250042813.jpeg",
+"p250042883.jpg",
+"p250042990.jpg",
+"p250043034.jpg",
+"p250043282.jpg",
+"p250043297.jpg",
+"p250043499.jpg",
+"p250043511.jpg",
+"p250043512.jpeg",
+"p250043818.jpg",
+"p250043881.jpg",
+"p250043884.jpg",
+"p250043896.jpg",
+"p250043978.jpg",
+"p250044050.jpg",
+"p250044085.jpg",
+"p250044086.jpeg",
+"p250044127.jpg",
+"p250044211.jpg",
+"p250044291.jpg",
+"p250044320.jpg",
+"p250044357.jpg",
+"p250044416.jpg",
+"p250044425.jpg",
+"p250044430.jpg",
+"p250044618.jpg",
+"p250044661.jpg",
+"p250044893.jpeg",
+"p250044898.jpg",
+"p250045013.jpg",
+"p250045096.jpg",
+"p250045468.jpg",
+"p250045491.jpeg",
+"p250045673.jpg",
+"p250045681.jpg",
+"p250045995.jpg",
+"p250046316.jpg",
+"p250046377.jpg",
+"p250046399.jpg",
+"p250046421.jpg",
+"p250046458.jpeg",
+"p250046522.jpg",
+"p250046671.jpg",
+"p250046680.jpg",
+"p250046724.jpg",
+"p250046815.jpg",
+"p250046905.jpg",
+"p250046906.jpg",
+"p250047009.jpg",
+"p250047136.jpg",
+"p250047190.jpg",
+"p250047226.jpg",
+"p250047253.jpg",
+"p250047262.jpg",
+"p250047371.jpeg",
+"p250047398.jpg",
+"p250047469.jpg",
+"p250047488.jpg",
+"p250047522.jpg",
+"p250047672.jpg",
+"p250047720.jpg",
+"p250047766.jpg",
+"p250047855.jpeg",
+"p250047998.jpg",
+"p250048018.jpg",
+"p250048273.jpg",
+"p250048322.jpg",
+"p250048327.jpg",
+"p250048372.jpg",
+"p250048461.jpg",
+"p250048671.jpg",
+"p250048718.jpg",
+"p250048742.jpeg",
+"p250048746.jpg",
+"p250048762.jpg",
+"p250048776.jpg",
+"p250048858.jpg",
+"p250048898.jpg",
+"p250048914.jpg",
+"p250048987.jpg",
+"p250049027.jpeg",
+"p250049047.jpeg",
+"p250049069.jpg",
+"p250049139.jpg",
+"p250049161.jpg",
+"p250049187.jpg",
+"p250049246.jpg",
+"p250049308.jpg",
+"p250049309.jpg",
+"p250049332.jpg",
+"p250049356.jpg",
+"p250049409.jpg",
+"p250049446.jpg",
+"p250049505.jpg",
+"p250049558.jpg",
+"p250049635.jpg",
+"p250049673.jpeg",
+"p250049701.jpg",
+"p250049742.jpg",
+"p250049785.jpg",
+"p250049794.jpg",
+"p250049844.jpg",
+"p250049882.jpeg",
+"p250049983.jpg",
+"p250049991.jpg",
+"p250050096.jpg",
+"p250050099.jpg",
+"p250050137.jpg",
+"p250050209.jpg",
+"p250050211.jpg",
+"p250050314.jpg",
+"p250050559.jpg",
+"p250050605.jpg",
+"p250050977.jpeg",
+"p250051040.jpg",
+"p250051072.jpg",
+"p250051136.jpg",
+"p250051311.jpg",
+"p250051335.jpeg",
+"p250051371.jpg",
+"p250051486.jpg",
+"p250051506.jpg",
+"p250051514.jpg",
+"p250051884.jpg",
+"p250051999.jpg",
+"p250052050.jpeg",
+"p250052116.jpeg",
+"p250052224.jpg",
+"p250052257.jpg",
+"p250052287.jpg",
+"p250052420.jpg",
+"p250052434.jpg",
+"p250052438.jpg",
+"p250052493.jpg",
+"p250052498.jpg",
+"p250052532.jpg",
+"p250052659.jpg",
+"p250052683.jpg",
+"p250052789.jpg",
+"p250052796.jpg",
+"p250052869.jpg",
+"p250052912.jpg",
+"p250052924.jpg",
+"p250052967.jpg",
+"p250053101.jpg",
+"p250053150.jpg",
+"p250053171.jpeg",
+"p250053319.jpg",
+"p250053373.jpg",
+"p250053400.jpeg",
+"p250053410.jpg",
+"p250053474.jpg",
+"p250053601.jpg",
+"p250053623.jpg",
+"p250053909.jpg",
+"p250053945.jpg",
+"p250053961.jpg",
+"p250053998.jpg",
+"p250054010.jpg",
+"p250054147.jpg",
+"p250054189.jpg",
+"p250054223.jpg",
+"p250054290.jpg",
+"p250054329.jpg",
+"p250054341.jpg",
+"p250054377.jpg",
+"p250054482.jpg",
+"p250054570.jpg",
+"p250054593.jpg",
+"p250054606.jpg",
+"p250054614.jpg",
+"p250054684.jpg",
+"p250054754.jpg",
+"p250054877.jpg",
+"p250054993.jpg",
+"p250055266.jpg",
+"p250055283.jpg",
+"p250055407.jpg",
+"p250055501.jpg",
+"p250055544.jpg",
+"p250055555.jpg",
+"p250055569.jpg",
+"p250055606.jpg",
+"p250055634.jpg",
+"p250055763.jpg",
+"p250055803.jpg",
+"p250055807.jpg",
+"p250055938.jpg",
+"p250056010.jpg",
+"p250056106.jpg",
+"p250056225.jpg",
+"p250056260.jpg",
+"p250056308.jpg",
+"p250056402.jpg",
+"p250056411.jpg",
+"p250056493.jpg",
+"p250056515.jpeg",
+"p250056605.jpg",
+"p250056632.jpg",
+"p250056642.jpg",
+"p250056654.jpg",
+"p250056731.jpg",
+"p250056739.jpg",
+"p250056819.jpg",
+"p250056835.jpg",
+"p250056906.jpg",
+"p250057088.jpg",
+"p250057092.jpg",
+"p250057184.jpg",
+"p250057480.jpg",
+"p250057566.jpg",
+"p250057737.jpg",
+"p250057739.jpg",
+"p250057845.jpg",
+"p250057940.jpg",
+"p250057964.jpg",
+"p250057994.jpg",
+"p250058004.jpg",
+"p250058081.jpeg",
+"p250058092.jpg",
+"p250058135.jpg",
+"p250058208.jpg",
+"p250058302.jpg",
+"p250058303.jpg",
+"p250058310.jpg",
+"p250058359.jpg",
+"p250058417.jpg",
+"p250058464.jpg",
+"p250058500.jpg",
+"p250058503.jpg",
+"p250058585.jpg",
+"p250058620.jpg",
+"p250058672.jpg",
+"p250058769.jpg",
+"p250058835.jpeg",
+"p250058904.jpg",
+"p250058918.jpg",
+"p250058983.jpg",
+"p250059024.jpeg",
+"p250059266.jpg",
+"p250059304.jpg",
+"p250059356.jpg",
+"p250059382.jpg",
+"p250059412.jpg",
+"p250059467.jpg",
+"p250059619.jpg",
+"p250059645.jpg",
+"p250059752.jpg",
+"p250059970.jpg",
+"p250060128.jpeg",
+"p250060213.jpg",
+"p250060259.jpeg",
+"p250060309.jpg",
+"p250060322.jpg",
+"p250060323.jpg",
+"p250060440.jpg",
+"p250060479.jpg",
+"p250060488.jpg",
+"p250060553.jpg",
+"p250060601.jpeg",
+"p250060710.jpg",
+"p250060721.jpg",
+"p250060745.jpg",
+"p250060813.jpg",
+"p250060880.jpg",
+"p250060918.jpg",
+"p250060926.jpg",
+"p250060956.jpg",
+"p250060961.jpg",
+"p250061039.jpg",
+"p250061143.jpg",
+"p250061217.jpg",
+"p250061233.jpg",
+"p250061238.jpg",
+"p250061286.jpeg",
+"p250061417.jpg",
+"p250061429.jpg",
+"p250061484.jpg",
+"p250061521.jpg",
+"p250061563.jpg",
+"p250061585.jpeg",
+"p250061622.jpg",
+"p250061697.jpg",
+"p250061762.jpg",
+"p250061766.jpg",
+"p250061801.jpg",
+"p250061879.jpg",
+"p250061901.jpg",
+"p250061909.jpg",
+"p250061936.jpg",
+"p250061948.jpg",
+"p250061985.jpg",
+"p250062053.jpg",
+"p250062056.jpg",
+"p250062113.jpg",
+"p250062139.jpg",
+"p250062151.jpg",
+"p250062231.jpg",
+"p250062232.jpg",
+"p250062256.jpg",
+"p250062318.jpg",
+"p250062332.jpg",
+"p250062575.jpg",
+"p250062596.jpg",
+"p250062620.jpg",
+"p250062634.jpg",
+"p250062788.jpg",
+"p250062809.jpg",
+"p250062888.jpg",
+"p250062912.jpg",
+"p250063051.jpg",
+"p250063111.jpg",
+"p250063129.jpg",
+"p250063165.jpg",
+"p250063183.jpg",
+"p250063189.jpg",
+"p250063206.jpg",
+"p250063270.jpg",
+"p250063558.jpg",
+"p250063693.jpg",
+"p250063817.jpeg",
+"p250063890.jpg",
+"p250063937.jpg",
+"p250064015.jpeg",
+"p250064086.jpeg",
+"p250064224.jpg",
+"p250064414.jpg",
+"p250064435.jpg",
+"p250064613.jpg",
+"p250064649.jpg",
+"p250064792.jpg",
+"p250064823.jpg",
+"p250064878.jpg",
+"p250065074.jpg",
+"p250065119.jpg",
+"p250065689.jpg",
+"p250065886.jpg",
+"p250065966.jpg",
+"p250066194.jpg",
+"p250066261.jpeg",
+"p250066353.jpg",
+"p250066431.jpg",
+"p250066671.jpg",
+"p250066747.jpeg",
+"p250066846.jpg",
+"p250066992.jpg",
+"p250067019.jpg",
+"p250067027.jpg",
+"p250067073.jpg",
+"p250067323.jpg",
+"p250067438.jpg",
+"p250067707.jpg",
+"p250067835.jpg",
+"p250068137.jpeg",
+"p250068264.jpeg",
+"p250068385.jpg",
+"p250068648.jpg",
+"p250068676.jpg",
+"p250068717.jpg",
+"p250069065.jpg",
+"p250069111.jpg",
+"p250069133.jpg",
+"p250069204.jpg",
+"p250069223.jpg",
+"p250069262.jpg",
+"p250069435.jpg",
+"p250069473.jpg",
+"p250069535.jpg",
+"p250069538.jpg",
+"p250069667.jpg",
+"p250069705.jpeg"
+
+
+    ];
+
+    let leftQueue = [];
+    let rightQueue = [];
+
+    function shuffleArray(arr) {
+      const array = arr.slice();
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function getImgName(url) {
+      const lastIndex = url.lastIndexOf('/');
+      return decodeURIComponent(url.substring(lastIndex + 1));
+    }
+
+    function probability(ratingA, ratingB) {
+      return 1.0 / (1 + Math.pow(10, (ratingA - ratingB) / 400));
+    }
+
+    function eloRating(leftRating, rightRating, k, leftWins) {
+      const leftProb = probability(rightRating, leftRating);
+      const rightProb = probability(leftRating, rightRating);
+
+      if (leftWins) {
+        leftRating += k * (1 - leftProb);
+        rightRating += k * (0 - rightProb);
+      } else {
+        leftRating += k * (0 - leftProb);
+        rightRating += k * (1 - rightProb);
+      }
+
+      return {
+        leftRating: Math.round(leftRating * 100) / 100,
+        rightRating: Math.round(rightRating * 100) / 100
+      };
+    }
+
+    async function loadRatingsFromFirebase() {
+  try {
+    const snapshot = await database.ref("ratings").once("value");
+    const data = snapshot.val() || {};
+
+    Object.keys(data).forEach(encodedKey => {
+      const realKey = decodeKey(encodedKey);
+      const rating = parseFloat(data[encodedKey]) || baseRating;
+      sessionStorage.setItem(realKey, rating);
+    });
+
+    console.log("✅ Ratings loaded from Firebase.");
+  } catch (error) {
+    console.error("❌ Failed to load ratings:", error);
+  }
+}
+
+
+    async function saveRatingsToFirebase() {
+  const ratings = {};
+  imageArray.forEach(img => {
+    const safeKey = encodeKey(img);
+    ratings[safeKey] = parseFloat(sessionStorage.getItem(img)) || baseRating;
+  });
+
+  try {
+    await database.ref("ratings").set(ratings);
+    console.log("✅ Ratings saved to Firebase.");
+  } catch (error) {
+    console.error("❌ Failed to save ratings:", error);
+  }
+}
+
+
+    function getNextImage(queue, exclude) {
+  // Filter out shown images and the excluded one
+  const availableImages = imageArray.filter(
+    img => !shownImages.has(img) && img !== exclude
+  );
+
+  if (availableImages.length === 0) {
+    console.warn("⚠️ No more images available.");
+    return { nextImg: null, updatedQueue: [] };
+  }
+
+  // Shuffle and pick a new one
+  const shuffled = shuffleArray(availableImages);
+  const nextImg = shuffled.pop();
+  return { nextImg, updatedQueue: shuffled };
+}
+
+
+    function updateEloAndDisplay(leftWin) {
+  const leftImage = document.getElementById("leftImg");
+  const rightImage = document.getElementById("rightImg");
+
+  const leftImgName = getImgName(leftImage.src);
+  const rightImgName = getImgName(rightImage.src);
+
+  const leftRating = parseFloat(sessionStorage.getItem(leftImgName));
+  const rightRating = parseFloat(sessionStorage.getItem(rightImgName));
+
+  const result = eloRating(leftRating, rightRating, k, leftWin);
+
+  sessionStorage.setItem(leftImgName, result.leftRating);
+  sessionStorage.setItem(rightImgName, result.rightRating);
+
+  saveRatingsToFirebase();
+
+  let winner = leftWin ? leftImgName : rightImgName;
+  let loser = leftWin ? rightImgName : leftImgName;
+
+  // Add only the losing image to the shown set
+  shownImages.add(loser);
+
+  if (leftWin) {
+    const { nextImg } = getNextImage(rightQueue, leftImgName);
+    if (nextImg) {
+      rightImage.src = imgDir + encodeURIComponent(nextImg);
+    } else {
+      rightImage.src = ""; // or a "no more images" placeholder
+    }
+  } else {
+    const { nextImg } = getNextImage(leftQueue, rightImgName);
+    if (nextImg) {
+      leftImage.src = imgDir + encodeURIComponent(nextImg);
+    } else {
+      leftImage.src = "";
+    }
+  }
+
+  renderRankingList();
+}
+
+
+    function encodeKey(key) {
+  return key.replace(/\./g, '_'); // Replace dot with underscore
+}
+
+function decodeKey(key) {
+  return key.replace(/_/g, '.'); // Reverse it back
+}
+
+
+    function clickLeft() {
+  updateEloAndDisplay(true);
+}
+
+function clickRight() {
+  updateEloAndDisplay(false);
+}
+
+// 👇 Make them global for inline HTML onclick=""
+window.clickLeft = clickLeft;
+window.clickRight = clickRight;
+
+
+    function renderRankingList() {
+      const rankingDiv = document.getElementById("rankingList");
+
+      const rankings = imageArray.map(imgName => {
+        const rating = parseFloat(sessionStorage.getItem(imgName)) || baseRating;
+        return { name: imgName, rating };
+      });
+
+      rankings.sort((a, b) => b.rating - a.rating);
+
+      let html = '<table>';
+      html += '<tr><th>Rank</th><th>Image</th><th>Rating</th></tr>';
+
+      rankings.forEach((item, index) => {
+        html += `<tr>
+          <td>${index + 1}</td>
+          <td><img src="${imgDir + encodeURIComponent(item.name)}" width="60" height="60" alt=""></td>
+          <td>${item.rating.toFixed(1)}</td>
+        </tr>`;
+      });
+
+      html += '</table>';
+      rankingDiv.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      await loadRatingsFromFirebase();
+
+      leftQueue = shuffleArray(imageArray);
+      rightQueue = shuffleArray(imageArray);
+
+      let leftImg = leftQueue.pop();
+      let rightImg = rightQueue.find(img => img !== leftImg);
+      rightQueue = rightQueue.filter(img => img !== rightImg); // remove chosen// 
+      
+      document.getElementById("leftImg").src = imgDir + encodeURIComponent(leftImg);
+      document.getElementById("rightImg").src = imgDir + encodeURIComponent(rightImg);
+      shownImages.add(leftImg);
+      shownImages.add(rightImg);
+
+
+
+      renderRankingList();
+    });
+  </script>
+
+  <div>
+    <div class="wrapper">
+      <div class="title">
+        <h1>FACEMASH</h1>
+      </div>
+      <div class="container">
+        <h3>
+          Were we let in for our looks? No. Will we be judged on them? Yes.
+        </h3>
+        <h2>Who's Hotter? Click to Choose.</h2>
+        
+        <div class="img-wrapper">
+          <img src="" alt="Left Image" id="leftImg" onclick="clickLeft()" />
+          <h3 class="or-char">OR</h3>
+          <img src="" alt="Right Image" id="rightImg" onclick="clickRight()" />
+        </div>
+        
+        <ul class="house-list">
+          <li><a href="#">ADAMS</a></li>
+          <li><a href="#">CABOT</a></li>
+          <li><a href="#">DUNSTER</a></li>
+          <li><a href="#">ELIOT</a></li>
+          <li><a href="#">KIRKLAND</a></li>
+          <li><a href="#">LEVERETT</a></li>
+          <li><a href="#">LOWELL</a></li>
+          <li><a href="#">MATHER</a></li>
+          <li><a href="#">PFOHO</a></li>
+          <li><a href="#">RANDOM</a></li>
+        </ul>
+        
+        <ul class="footer-list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Submit</a></li>
+          <li><a href="ranking.html">Rankings</a></li>
+          <li><a href="#">Previous</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+  <script type="text/javascript"></script>
+  <!-- <script src="scripts.js"></script> -->
+</body>
+
+</html>
