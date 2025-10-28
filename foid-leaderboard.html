@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics 4
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S18K6C96YW"></script> -->
+<!-- <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S18K6C96YW');
+</script> -->
+<!-- End Google Analytics 4 -->
+ <!-- Favicon -->
+ <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+ <!-- <link rel="manifest" href="/site.webmanifest"> -->
+ <link rel="shortcut icon" href="/favicon.ico">
+ <meta name="theme-color" content="#b8f7a4">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foid Leaderboard – Viral Rankings from the Tea App Spill</title>
+<meta name="description" content="See who ranks top in the TeaSpill Foid Leaderboard. Inspired by the Tea App leak, this page showcases the most voted foid faces going viral online.">
+<meta name="keywords" content="foid leaderboard, tea app ranking, tea spill girls, tea app viral photos, tea spill board, girls face rating">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"> -->
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Georgia, serif;
+            background-color: #b8f7a4; /* Light green background */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        /* Logo */
+        .logo {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .logo h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+        
+        .logo h1 span.tea {
+            color: #d0a4f7; /* Light purple */
+        }
+        
+        .logo h1 span.spill {
+            color: #000; /* Black */
+        }
+        .logo p {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+              user-select: none;
+  text-align: right;
+  padding-right: 20px; /* 👈 adds space on the right side */
+  pointer-events: none; /* so clicks pass through */
+}
+        .logo p span.By {
+            color: #000; /* Light pink */
+        }
+        
+        /* Main content */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .leaderboard-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .back-button {
+            background-color: white;
+            color: #d0a4f7;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .tabs {
+            display: flex;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .tab.active {
+            background-color: #d0a4f7;
+            color: white;
+        }
+        
+        .tab:not(.active) {
+            background-color: #a5e193;
+            color: #333;
+        }
+        
+        .leaderboard-list {
+            width: 100%;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(165, 225, 147, 0.6);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 16px;
+        }
+        
+        .rank {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            min-width: 80px;
+        }
+        
+        .medal {
+            font-size: 1.5rem;
+            margin-right: 5px;
+        }
+        
+        .rank-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #d0a4f7;
+        }
+        
+        .leaderboard-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+        
+        .leaderboard-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .leaderboard-stats {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .stats-text {
+            text-align: left;
+            font-size: 1rem;
+        }
+        
+        .elo-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #d0a4f7;
+        }
+        
+        .chat-button {
+            background-color: transparent;
+            color: #ff6b6b;
+            border: none;
+            padding: 5px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .chat-button:hover {
+            text-decoration: underline;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 900px) {
+            .leaderboard-stats {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .leaderboard-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .rank {
+                margin-right: 0;
+                margin-bottom: 10px;
+                justify-content: center;
+            }
+            
+            .leaderboard-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.6rem; /* Font size */
+            color: gray; /* Text color */
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <h1><span class="tea">Face</span><span class="spill">Mash</span></h1>
+        <p><span class="By"> By M.L.S.M. College</span></p>
+    </div>
+    
+    <div class="container">
+        <h2 class="leaderboard-title">Hotter Leaderboard</h2>
+        
+        <a href="foid-voting.html" class="back-button">
+            <svg xmlns="" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+            BACK TO VOTING
+        </a>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('top')">🏆 Top 50</div>
+            <div class="tab" onclick="switchTab('bottom')">🏳 Bottom 50</div>
+        </div>
+        
+        <div class="leaderboard-list" id="top-list">
+            <!-- Leaderboard items will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="leaderboard-list" id="bottom-list" style="display: none;">
+            <!-- Bottom list items will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="footer-text">
+        takedowns? hate? <a href=""><span class="__cf_email__" data-cfemail="">[email&#160;protected]</span></a>
+    </div>
+
+    <script data-cfasync="false" src=""></script>
+    
+    <script>
+        // Mock data for the leaderboard
+        const topFoids = [];
+        const bottomFoids = [];
+        
+        // Generate 50 entries for top foids
+        for (let i = 1; i <= 50; i++) {
+            const wins = Math.floor(1000 + Math.random() * 3000);
+            const losses = Math.floor(500 + Math.random() * 5000);
+            const elo = 1800 - (i * 6); // Ensure descending ELO ratings
+            
+            topFoids.push({
+                id: i,
+                img: `images/foid/foid${i}.jpg`, // Use local images for Top 50
+                wins: wins,
+                losses: losses,
+                elo: elo
+            });
+        }
+        
+        // Generate 50 entries for bottom foids
+        const baseElo = 3; // Starting ELO for Bottom 50
+
+        for (let i = 0; i < 50; i++) {
+            const wins = Math.floor(100 + Math.random() * 800);
+            const losses = Math.floor(1000 + Math.random() * 2000);
+            const elo = baseElo + (i * 5); // Incremental ELO ratings
+
+            bottomFoids.push({
+                id: 7179 - i, // IDs from 7179 downwards
+                img: `images/foid/foid${51 + i}.jpg`, // Use images numbered 51-100
+                wins: wins,
+                losses: losses,
+                elo: elo
+            });
+        }
+        
+        // Populate the leaderboard
+        function populateLeaderboard() {
+            const topList = document.getElementById('top-list');
+            const bottomList = document.getElementById('bottom-list');
+            
+            // Clear existing items
+            topList.innerHTML = '';
+            bottomList.innerHTML = '';
+            
+            // Populate top list
+            topFoids.forEach((foid, index) => {
+                const winRate = ((foid.wins / (foid.wins + foid.losses)) * 100).toFixed(1);
+                
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                
+                let medalHtml = '';
+                if (index === 0) {
+                    medalHtml = '<span class="medal">🥇</span>';
+                } else if (index === 1) {
+                    medalHtml = '<span class="medal">🥈</span>';
+                } else if (index === 2) {
+                    medalHtml = '<span class="medal">🥉</span>';
+                }
+                
+                item.innerHTML = `
+                    <div class="rank">
+                        ${medalHtml}
+                        <span class="rank-number">#${index + 1}</span>
+                    </div>
+                    <div class="leaderboard-image">
+                        <img src="${foid.img}" alt="Foid #${index + 1}">
+                    </div>
+                    <div class="leaderboard-stats">
+                        <div class="stats-text">Wins: ${foid.wins} | Losses: ${foid.losses} | Win Rate: ${winRate}%</div>
+                        <div class="elo-score">ELO ${foid.elo}</div>
+                        <a href="https://crushon.ai/?&mist=1" class="chat-button" target="_blank" rel="noopener">chat with her</a>
+                    </div>
+                `;
+                
+                topList.appendChild(item);
+            });
+            
+            // Populate bottom list
+            bottomFoids.forEach((foid, index) => {
+                const winRate = ((foid.wins / (foid.wins + foid.losses)) * 100).toFixed(1);
+                
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                
+                item.innerHTML = `
+                    <div class="rank">
+                        <span class="rank-number">#${foid.id}</span>
+                    </div>
+                    <div class="leaderboard-image">
+                        <img src="${foid.img}" alt="Foid #${foid.id}">
+                    </div>
+                    <div class="leaderboard-stats">
+                        <div class="stats-text">Wins: ${foid.wins} | Losses: ${foid.losses} | Win Rate: ${winRate}%</div>
+                        <div class="elo-score">ELO ${foid.elo}</div>
+                        <a href="https://crushon.ai/?&mist=1" class="chat-button" target="_blank" rel="noopener">chat with her</a>
+                    </div>
+                `;
+                
+                bottomList.appendChild(item);
+            });
+        }
+        
+        // Switch between top and bottom tabs
+        function switchTab(tab) {
+            const topTab = document.querySelectorAll('.tab')[0];
+            const bottomTab = document.querySelectorAll('.tab')[1];
+            const topList = document.getElementById('top-list');
+            const bottomList = document.getElementById('bottom-list');
+            
+            if (tab === 'top') {
+                topTab.classList.add('active');
+                bottomTab.classList.remove('active');
+                topList.style.display = 'block';
+                bottomList.style.display = 'none';
+            } else {
+                topTab.classList.remove('active');
+                bottomTab.classList.add('active');
+                topList.style.display = 'none';
+                bottomList.style.display = 'block';
+            }
+        }
+        
+        // Initialize on page load
+        window.onload = populateLeaderboard;
+    </script>
+</body>
+</html>
