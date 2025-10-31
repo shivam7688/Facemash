@@ -27,6 +27,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"> -->
     <style>
+        /* Remove blue highlight on tap/click */
+  a, button, img, input {
+    -webkit-tap-highlight-color: transparent; /* For iOS Safari */
+  }
+
+  /* Remove focus outlines by default */
+  :focus {
+    outline: none;
+  }
+
+  /* Restore visible focus for keyboard users */
+  :focus-visible {
+    outline: 2px solid #007BFF; /* Customize your color */
+    outline-offset: 3px;        /* Optional spacing */
+    border-radius: 4px;         /* Optional styling */
+  }
         /* CSS Reset */
         * {
             margin: 0;
@@ -1413,4 +1429,5 @@ overlay.addEventListener('click', () => {
 </div>
 <script data-cfasync="false" src=""></script></body>
 </html>
+
 
